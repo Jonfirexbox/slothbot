@@ -57,3 +57,10 @@ typings/
 # dotenv environment variables file
 .env
 
+tags.json
+settings.json
+dm.txt
+log.txt
+resources
+storage
+speedtest-cli
