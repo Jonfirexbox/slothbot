@@ -5,7 +5,7 @@ const client = new Discord.Client();
 
 client.login(settings.token);
 
-fmls = { cache: [] };
+fml = { cache: [] };
 
 client.on('ready', async () => {
 	console.log(`Logged in as ${client.user.username}`);
