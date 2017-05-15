@@ -1,7 +1,7 @@
 const sf      = require("snekfetch");
 const cheerio = require('cheerio');
 
-exports.run = async function(client, msg, args, undefined, undefined, fml) {
+exports.run = async function(client, msg, args) {
 	if (fml.cache.length >= 2) { // use cache for SPEEEED
 		msg.edit(fml.cache[0]);
 		fml.cache.shift();

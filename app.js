@@ -41,7 +41,7 @@ client.on('message', msg => {
 		if (!fs.existsSync("./commands/" + command + ".js")) return false;
 		try {
 			delete require.cache[require.resolve("./commands/" + command)];
-			require("./commands/" + command).run(client, msg, args, settings, Discord, fmls);
+			require("./commands/" + command).run(client, msg, args, settings, Discord);
 		}catch(e){
 			console.log(e)
 			msg.edit({ embed: { color: 0x26a856, title: e.stack.split("\n")[0], description: e.message + "\n" + e.stack.split("\n")[1] }});
