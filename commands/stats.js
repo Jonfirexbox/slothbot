@@ -1,14 +1,14 @@
-exports.run = function(client, msg, args, settings, Discord) {
-	let embed = new Discord.RichEmbed().setColor("#26a856")
-	.addField(`${client.user.username}#${client.user.discriminator} (SBv${settings.version})`,
-		`**Uptime:** ${getDur(process.uptime())}\n` +
-		`**Ping:** ${client.ping.toFixed(0)}ms\n` +
-		`**RAM:** ${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB\n` +
-		`**NodeJS:** ${process.version}`);
-	msg.edit("", {embed: embed})
+exports.run = function(client, msg, args, settings) {
+	msg.edit("", { embed: {
+		color: 0x26a856,
+		title: `${client.user.tag} (SelfBot-v${settings.version})`,
+		description: `Uptime: **${formatTime(process.uptime())}**\n` +
+					 `Ping: **${client.pings[0]}ms**\n` +
+					 `RAM: **${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB**`
+	}});
 }
 
-function getDur(time) {
+function formatTime(time) {
     let days = Math.floor((time % 31536000) / 86400);
     let hours = Math.floor(((time % 31536000) % 86400) / 3600);
     let minutes = Math.floor((((time % 31536000) % 86400) % 3600) / 60);

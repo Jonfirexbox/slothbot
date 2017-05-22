@@ -1,6 +1,6 @@
 exports.run = async function(client, msg, args) {
 
-	msg = await msg.edit("", { embed: { color: 0x26a856, description: "Fetching users..." }});
+	msg = await msg.edit({ embed: { color: 0x26a856, description: "Fetching users..." }});
 
 	let user;
 
@@ -8,10 +8,10 @@ exports.run = async function(client, msg, args) {
 	else if (args[0]) parseInt(args[0]) ? user = client.users.get(args[0]) : user = client.users.find("username", args.join(" ").replace("-shared", ""));
 	else user = msg.author;
 
-	if (!user) return msg.edit("", { embed: { color: 0x26a856, description: "No users found. "}});
+	if (!user) return msg.edit({ embed: { color: 0x26a856, description: "No users found. "}});
 
 	if (args[1] === "-shared") {
-		return msg.channel.sendMessage("", { embed: {
+		return msg.edit({ embed: {
 			color: 0x26a856,
 			title: `Servers Shared with ${user.tag}`,
 			description: client.guilds.filter(g => g.members.has(user.id)).map(g => g.name).join("\n")
@@ -38,5 +38,5 @@ exports.run = async function(client, msg, args) {
 	};
 
 	if (msg.guild && msg.guild.members.has(user.id)) embed.fields.push({ name: "Joined", value: msg.guild.member(user).joinedAt.toString(), inline: false });
-	msg.edit("", {embed: embed})
+	msg.edit({embed: embed})
 }

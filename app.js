@@ -1,17 +1,23 @@
 const settings = require("./settings.json");
 const fs = require('fs');
 const Discord = require("discord.js")
-const client = new Discord.Client();
+const client = new Discord.Client({
+	messageCacheMaxSize: 100,
+	messageSweepInterval: 300,
+	disabledEvents: ["RESUMED", "RELATIONSHIP_ADD", "RELATIONSHIP_REMOVE", "TYPING_START", "USER_NOTE_UPDATE", "USER_SETTINGS_UPDATE", "VOICE_STATE_UPDATE", "VOICE_SERVER_UPDATE"]
+});
 
-client.login(settings.token);
+client.login(settings.keys.discord);
 
 fml = { cache: [] };
 
 client.on('ready', async () => {
 	console.log(`Logged in as ${client.user.username}`);
+
 	if (!settings.reboot) return false;
 	let m = await client.channels.get(settings.reboot.channel).fetchMessages({limit: 1, around: settings.reboot.msg})
-	if (m && m.first()) m.first().react("\u2611");
+	if (m && m.first())
+		m.first().edit({ embed: { color: 0x26a856, title: "Rebooted.", footer: { text: `Took ${Date.now() - settings.reboot.start}ms` }}});
 	delete settings.reboot;
 	fs.writeFileSync(`./settings.json`, JSON.stringify(settings, "", "\t"));
 })
