@@ -17,7 +17,7 @@ client.on('ready', async () => {
 	if (!settings.reboot) return false;
 	let m = await client.channels.get(settings.reboot.channel).fetchMessages({limit: 1, around: settings.reboot.msg})
 	if (m && m.first())
-		m.first().edit({ embed: { color: 0x26a856, title: "Rebooted.", footer: { text: `Took ${Date.now() - settings.reboot.start}ms` }}});
+		m.first().edit({ embed: { color: 0x26a856, title: "Rebooted.", description: `Took ${Date.now() - settings.reboot.start}ms` }});
 	delete settings.reboot;
 	fs.writeFileSync(`./settings.json`, JSON.stringify(settings, "", "\t"));
 })
