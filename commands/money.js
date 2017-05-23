@@ -1,8 +1,8 @@
-const superagent = require("superagent");
+const sf = require("snekfetch");
 
 exports.run = async function(client, msg, args) {
 
-	let res = await superagent.get(`https://api.fixer.io/latest?base=${args[1]}`);
+	let res = await sf.get(`https://api.fixer.io/latest?base=${args[1]}`);
 	if (!res || !res.body) return msg.edit("No conversion rates found.");
 
 	let toRates = res.body.rates[args[2].toUpperCase()]

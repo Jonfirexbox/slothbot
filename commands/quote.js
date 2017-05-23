@@ -1,8 +1,6 @@
-const request = require('superagent')
+const sf = require('snekfetch')
 
-exports.run = function(client, msg, args) {
-	request.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en").end((err, res) => {
-		if (err) return msg.edit(err);
-		msg.edit('"*' + res.body.quoteText + '"*\n	~**' + res.body.quoteAuthor + "**")
-	})
+exports.run = async function(client, msg, args) {
+	let data = await sf.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en");
+	msg.edit('"*' + res.body.quoteText + '"*\n	~**' + res.body.quoteAuthor + "**")
 }
